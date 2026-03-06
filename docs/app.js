@@ -361,11 +361,14 @@ $btnSkip?.addEventListener('click', () => {
 document.getElementById('btn-next-stage')?.addEventListener('click', () => {
   if (state.phase !== 'pet') return;
   const ageHours = state.birthTime ? (Date.now() - state.birthTime) / 3_600_000 : 0;
-  // Находим следующую стадию
-  const currentIdx = [...PET_STAGES].reverse().findIndex(s => ageHours >= s.minAge);
-  const nextStage  = PET_STAGES[PET_STAGES.length - 1 - currentIdx + 1];
+  // Находим индекс текущей стадии
+  let currentIdx = 0;
+  for (let i = 0; i < PET_STAGES.length; i++) {
+    if (ageHours >= PET_STAGES[i].minAge) currentIdx = i;
+  }
+  const nextStage = PET_STAGES[currentIdx + 1];
   if (!nextStage) { showToast('🦅 Это максимальная стадия!'); return; }
-  // Сдвигаем birthTime так чтобы возраст стал minAge следующей стадии
+  // Сдвигаем birthTime чтобы возраст стал = minAge следующей стадии
   state.birthTime = Date.now() - nextStage.minAge * 3_600_000;
   saveState();
   updatePetUI();
