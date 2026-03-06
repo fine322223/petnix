@@ -357,6 +357,21 @@ $btnSkip?.addEventListener('click', () => {
   triggerHatch();
 });
 
+// ── Debug: следующая стадия взросления ───────────────────────────────────────
+document.getElementById('btn-next-stage')?.addEventListener('click', () => {
+  if (state.phase !== 'pet') return;
+  const ageHours = state.birthTime ? (Date.now() - state.birthTime) / 3_600_000 : 0;
+  // Находим следующую стадию
+  const currentIdx = [...PET_STAGES].reverse().findIndex(s => ageHours >= s.minAge);
+  const nextStage  = PET_STAGES[PET_STAGES.length - 1 - currentIdx + 1];
+  if (!nextStage) { showToast('🦅 Это максимальная стадия!'); return; }
+  // Сдвигаем birthTime так чтобы возраст стал minAge следующей стадии
+  state.birthTime = Date.now() - nextStage.minAge * 3_600_000;
+  saveState();
+  updatePetUI();
+  showToast(`✨ Стадия: ${nextStage.emoji} ${nextStage.name}`);
+});
+
 // ── Toast ─────────────────────────────────────────────────────────────────────
 function showToast(msg) {
   clearTimeout(toastTimer);
