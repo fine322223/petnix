@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petnix 🥚</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════  ЭКРАН: ЯЙЦО  ══════════════════ -->
+  <div id="screen-egg" class="screen active">
+    <h1 class="title">🥚 Petnix</h1>
+    <p class="subtitle" id="egg-timer-label">До вылупления:</p>
+    <div class="egg-wrap">
+      <div class="egg" id="egg-sprite">🥚</div>
+      <div class="crack-overlay" id="crack-overlay"></div>
+    </div>
+    <div class="countdown" id="countdown">24:00:00</div>
+    <p class="hint">Питомец вылупится через 24 часа.<br>Возвращайся позже! 🐣</p>
+    <!-- кнопка только для теста — убери в продакшне -->
+    <button class="btn-debug" id="btn-skip">⚡ Вылупить сейчас (тест)</button>
+  </div>
+
+  <!-- ══════════════════  ЭКРАН: ВЫЛУПЛЕНИЕ  ══════════════════ -->
+  <div id="screen-hatch" class="screen">
+    <div class="hatch-anim" id="hatch-anim">🥚</div>
+    <p class="hatch-text">Твой питомец вылупляется...</p>
+  </div>
+
+  <!-- ══════════════════  ЭКРАН: ПИТОМЕЦ  ══════════════════ -->
+  <div id="screen-pet" class="screen">
+    <h1 class="title">🐣 Petnix</h1>
+
+    <div class="pet-wrap">
+      <div class="pet-sprite" id="pet-sprite">🐣</div>
+      <div class="pet-mood" id="pet-mood"></div>
+    </div>
+
+    <!-- Статы -->
+    <div class="stats">
+      <div class="stat-row">
+        <span>🍖 Сытость</span>
+        <div class="bar-bg"><div class="bar" id="bar-hunger"></div></div>
+        <span class="stat-val" id="val-hunger">100</span>
+      </div>
+      <div class="stat-row">
+        <span>😊 Настроение</span>
+        <div class="bar-bg"><div class="bar" id="bar-mood"></div></div>
+        <span class="stat-val" id="val-mood">100</span>
+      </div>
+      <div class="stat-row">
+        <span>⚡ Энергия</span>
+        <div class="bar-bg"><div class="bar" id="bar-energy"></div></div>
+        <span class="stat-val" id="val-energy">100</span>
+      </div>
+    </div>
+
+    <!-- Действия -->
+    <div class="actions">
+      <button class="action-btn" id="btn-feed"  onclick="action('feed')">🍖<br>Покормить</button>
+      <button class="action-btn" id="btn-play"  onclick="action('play')">🎾<br>Играть</button>
+      <button class="action-btn" id="btn-sleep" onclick="action('sleep')">💤<br>Спать</button>
+    </div>
+
+    <!-- Возраст -->
+    <p class="age-label" id="age-label">Возраст: 0 д. 0 ч.</p>
+  </div>
+
+  <!-- ══════════════════  ЭКРАН: СМЕРТЬ  ══════════════════ -->
+  <div id="screen-dead" class="screen">
+    <div class="dead-sprite">😵</div>
+    <h2 class="dead-title">Питомец умер...</h2>
+    <p class="dead-sub">Ему не хватило заботы 😢</p>
+    <button class="btn-restart" onclick="restartGame()">🔄 Начать заново</button>
+  </div>
+
+  <!-- toast-уведомление -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
