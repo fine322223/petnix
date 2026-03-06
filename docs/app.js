@@ -358,6 +358,22 @@ $btnSkip?.addEventListener('click', () => {
 });
 
 // ── Debug: следующая стадия взросления ───────────────────────────────────────
+function debugNextStage() {
+  if (state.phase !== 'pet') return;
+  const ageHours = state.birthTime ? (Date.now() - state.birthTime) / 3_600_000 : 0;
+  let currentIdx = 0;
+  for (let i = 0; i < PET_STAGES.length; i++) {
+    if (ageHours >= PET_STAGES[i].minAge) currentIdx = i;
+  }
+  const nextStage = PET_STAGES[currentIdx + 1];
+  if (!nextStage) { showToast('🦅 Это максимальная стадия!'); return; }
+  state.birthTime = Date.now() - nextStage.minAge * 3_600_000;
+  saveState();
+  updatePetUI();
+  showToast(`✨ Стадия: ${nextStage.emoji} ${nextStage.name}`);
+}
+window.debugNextStage = debugNextStage;
+
 document.getElementById('btn-next-stage')?.addEventListener('click', () => {
   if (state.phase !== 'pet') return;
   const ageHours = state.birthTime ? (Date.now() - state.birthTime) / 3_600_000 : 0;
