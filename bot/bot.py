@@ -11,7 +11,7 @@ from aiogram.types import (
 
 # ─── Конфиг ────────────────────────────────────────────────────────────────────
 BOT_TOKEN = "8685740136:AAGjnjUYfv5idoYIOEP5gL6QmDY1_71fErY"          # вставь токен от @BotFather
-MINIAPP_URL = "https://your-domain.com"    # URL, где хостится miniapp/index.html
+MINIAPP_URL = "https://fine322223.github.io/petnix/"    # GitHub Pages
 # ────────────────────────────────────────────────────────────────────────────────
 
 logging.basicConfig(level=logging.INFO)
