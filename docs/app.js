@@ -366,7 +366,17 @@ function debugNextStage() {
     if (ageHours >= PET_STAGES[i].minAge) currentIdx = i;
   }
   const nextStage = PET_STAGES[currentIdx + 1];
-  if (!nextStage) { showToast('🦅 Это максимальная стадия!'); return; }
+  if (!nextStage) {
+    // Финальная стадия — запускаем новое яйцо
+    showToast('� Питомец улетел... Появилось новое яйцо!');
+    setTimeout(() => {
+      clearInterval(tickTimer);
+      state = createNewGame();
+      saveState();
+      renderCurrentPhase();
+    }, 1500);
+    return;
+  }
   state.birthTime = Date.now() - nextStage.minAge * 3_600_000;
   saveState();
   updatePetUI();
